@@ -17,17 +17,6 @@
 
     <link rel="stylesheet" href="css/normalize.css" />
     <link rel="stylesheet" href="css/screen.css" />
-    <script type="text/javascript">
-      function togglePassword() {
-        var passwordInput = document.querySelector(".js-password-input");
-
-        if (passwordInput.type === "password") {
-          passwordInput.type = "text";
-        } else {
-          passwordInput.type = "password";
-        }
-      }
-    </script>
   </head>
   <body>
     <section class="o-row o-row--lg o-row--login o-row--beta">
@@ -201,7 +190,7 @@
             <div class="o-section">
               <!-- Custom toggle checkboxes -->
               <h5>Custom toggle checkbox</h5>
-              <p class="c-form-field c-form-field--option">
+              <p>
                 <input
                   class="o-hide-accessible c-option c-option--hidden"
                   type="checkbox"
@@ -218,26 +207,22 @@
             </div>
             <div class="o-section">
               <h5>Custom toggle list</h5>
-              <ul class="o-list c-toggle-list">
-                <li
-                  class="c-form-field c-form-field--option c-toggle-list__item"
-                >
+              <ul class="o-list c-custom-toggle-list">
+                <li class="c-custom-toggle-list__item">
                   <input
                     class="o-hide-accessible c-option c-option--hidden"
                     type="checkbox"
                     id="toggle3"
                   />
                   <label
-                    class="c-label c-label--option c-custom-toggle c-custom-toggle--inverted"
+                    class="c-label c-label--option c-custom-toggle c-toggle__label--inverted"
                     for="toggle3"
                   >
                     <span class="c-custom-toggle__fake-input"> </span>
                     Toggle setting 3
                   </label>
                 </li>
-                <li
-                  class="c-form-field c-form-field--option c-toggle-list__item"
-                >
+                <li class="c-custom-toggle-list__item">
                   <input
                     class="o-hide-accessible c-option c-option--hidden"
                     type="checkbox"
@@ -245,23 +230,21 @@
                     checked
                   />
                   <label
-                    class="c-label c-label--option c-custom-toggle c-custom-toggle--inverted"
+                    class="c-label c-label--option c-custom-toggle c-toggle__label--inverted"
                     for="toggle4"
                   >
                     <span class="c-custom-toggle__fake-input"> </span>
                     Toggle setting 4
                   </label>
                 </li>
-                <li
-                  class="c-form-field c-form-field--option c-toggle-list__item"
-                >
+                <li class="c-custom-toggle-list__item">
                   <input
                     class="o-hide-accessible c-option c-option--hidden"
                     type="checkbox"
                     id="toggle5"
                   />
                   <label
-                    class="c-label c-label--option c-custom-toggle c-custom-toggle--inverted"
+                    class="c-label c-label--option c-custom-toggle c-toggle__label--inverted"
                     for="toggle5"
                   >
                     <span class="c-custom-toggle__fake-input"> </span>
@@ -277,7 +260,7 @@
                 <label class="c-label" for="select1"> Select your car </label>
                 <span class="c-custom-select">
                   <select
-                    class="c-custom-select__input"
+                    class="c-input c-custom-select__input"
                     class=""
                     name="select1"
                     id="select1"

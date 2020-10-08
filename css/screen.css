@@ -27,6 +27,7 @@
   --global-color-alpha-transparent: #3385ffbf;
   --global-color-alpha-x-transparent: #3385ff4d;
 
+  --global-color-neutral-xxxxx-light:#FFFFFF;
   --global-color-neutral-xxxx-light: #f5f6fa;
   --global-color-neutral-xxx-light: #e2e3e7;
   --global-color-neutral-xx-light: #caccd4;
@@ -63,6 +64,10 @@
   --global-whitespace-lg: calc(var(--global-baseline) * 4); /*  = 32px */
   --global-whitespace-xl: calc(var(--global-whitespace) * 2); /*  = 48px */
   --global-whitespace-xxl: calc(var(--global-whitespace) * 3); /*  = 72px */
+
+  /* darkmode */
+  --global-page-color: var(--color-neutral-xxxx-dark);
+  --global-page-backgroundColor: var(--color-neutral-xxxx-light);
 }
 
 /*------------------------------------*\
@@ -79,7 +84,7 @@ html {
   font-size: 16px;
   line-height: 1.5;
   font-family: "Inter Web", Helvetica, arial, sans-serif;
-  color: var(--global-color-neutral-xxxx-dark);
+  color: var(--html--color,var(--global-color-neutral-xxxx-dark));
   background-color: var(--global-color-neutral-xxxx-light);
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
@@ -519,17 +524,16 @@ input::placeholder {
 .c-logo__symbol {
   height: 100%;
 }
-
 .c-logo__path--1 {
-  fill: var(--global-color-neutral-xxxx-dark);
+  fill: var(--logo__path--1--fill, var(--global-color-neutral-xxxx-dark));
 }
 
 .c-logo__path--2 {
-  fill: var(--global-color-alpha);
+  fill: var(--logo__path--2--fill, var(--global-color-alpha));
 }
 
 .c-logo__path--3 {
-  fill: var(--color-alpha-x-dark);
+  fill: var(--logo__path--3--fill, var(--global-color-alpha-x-dark));
 }
 
 /*
@@ -539,7 +543,7 @@ input::placeholder {
 */
 
 .c-card {
-  background-color: White;
+  background-color:var(--card--bg, var(--global-color-neutral-xxxxx-light));
   margin-bottom: var(--global-whitespace);
   border-radius: var(--global-borderRadius);
   box-shadow: 0 0 0 var(--global-borderWidth) rgba(0, 0, 0, 0.05),
@@ -551,12 +555,14 @@ input::placeholder {
 .c-card__body,
 .c-card__footer {
   padding: var(--global-whitespace);
+  overflow: auto; /* Fix margin collapse */
 }
 
 .c-card__footer {
   text-align: center;
   border-top: var(--global-borderWidth) solid
     var(--global-color-neutral-xxx-light);
+  background-color:var(--card__footer--bg, var(--global-color-neutral-xxxxx-light));
 }
 
 .c-card__title {
@@ -612,8 +618,11 @@ input::placeholder {
   width: 100%;
   border: var(--global-borderWidth) solid var(--global-color-neutral-xxx-light);
   border-radius: var(--global-borderRadius);
-  color: var(--global-color-neutral-xxxx-dark);
-  background-color: White;
+
+  color:var(--input--color,var(--global-color-neutral-xxxx-dark));
+  background-color:var(--input--bg,var(--global-color-neutral-xxxxx-light));
+  border-color: var(--input--border-color,var(--global-color-neutral-xxx-light));
+  
   font-family: inherit;
   font-size: 16px;
   line-height: calc(var(--global-baseline) * 3);
@@ -720,7 +729,7 @@ input::placeholder {
   font-size: 14px;
   padding-bottom: var(--global-whitespace-xs);
   line-height: calc(var(--global-baseline) * 2);
-  color: var(--global-color-neutral-xx-dark);
+  color:var(--label--color,var(--global-color-neutral-xx-dark));
 }
 
 .c-label--option {
@@ -759,6 +768,138 @@ input::placeholder {
 .c-button:active {
   background-color: var(--global-color-alpha-dark);
   box-shadow: none;
+}
+
+.c-option-list{
+  margin-bottom: 24px;
+}
+.c-option-list__item{
+  margin-bottom: 12px;
+}
+
+/*
+    Component: Custom Toggle
+    ---
+    Class to put on custom toggle buttons
+*/
+
+.c-custom-toggle-list {
+  --toggle-list-borderColor: var(--global-color-neutral-xxx-light);
+  margin-bottom: var(--global-whitespace);
+}
+
+.c-custom-toggle-list__item {
+  margin-bottom: calc(var(--global-whitespace) / 2);
+}
+
+.c-custom-toggle-list__item + .c-custom-toggle-list__item {
+  padding-top: calc(var(--global-whitespace) / 2);
+  border-top: 1px solid var(--toggle-list-borderColor);
+}
+
+.c-custom-toggle {
+  --toggle-backgroundColor: var(--global-color-neutral-xxxx-light);
+  --toggle-checked-borderColor: var(--global-color-alpha-dark);
+  --toggle-checked-backgroundColor: var(--global-color-alpha);
+  --toggle-focus-boxShadow: var(--global-input-focus-boxShadow);
+  --toggle__switch-backgroundColor: White;
+  --toggle__switch-checked-backgroundColor: White;
+  --toggle__switch-transition: all var(--global-transitionTiming-alpha);
+  display: flex;
+  align-items: center;
+}
+
+.c-toggle__label--inverted {
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+.c-custom-toggle__fake-input {
+  display: block;
+  height: 24px;
+  width: 48px;
+  margin-right: var(--global-whitespace-md);
+  background-color: var(--toggle-backgroundColor);
+  border-radius: 32px;
+  border: var(--global-borderWidth) solid
+    var(--toggle-borderColor, var(--global-input-borderColor));
+  transition: all var(--global-transitionTiming-alpha);
+  box-shadow: var(--toggle-boxShadow, 0);
+}
+
+.c-custom-toggle--inverted .c-custom-toggle__fake-input {
+  margin-right: 0;
+}
+
+.c-custom-toggle__fake-input::after {
+  position: relative;
+  display: block;
+  content: "";
+  height: 22px;
+  width: 22px;
+  border-radius: 22px;
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.2);
+  background-color: var(--toggle__switch-backgroundColor);
+  transition: var(--toggle__switch-transition);
+}
+
+/* focused and active state */
+
+.c-option--hidden:focus + .c-custom-toggle,
+.c-option--hidden:active + .c-custom-toggle {
+  --toggle-borderColor: var(--global-input-focus-borderColor);
+  --toggle-boxShadow: var(--toggle-focus-boxShadow);
+}
+
+/* checked state */
+
+.c-option--hidden:checked + .c-custom-toggle {
+  --toggle-backgroundColor: var(--toggle-checked-backgroundColor);
+  --toggle-borderColor: var(--toggle-checked-borderColor);
+  --toggle__switch-backgroundColor: var(
+    --toggle__switch-checked-backgroundColor
+  );
+}
+
+.c-option--hidden:checked
+  + .c-custom-toggle
+  .c-custom-toggle__fake-input::after {
+  transform: translate(24px, 0);
+}
+
+/* special active state */
+
+.c-option--hidden:active
+  + .c-custom-toggle
+  .c-custom-toggle__fake-input::after {
+  width: 28px;
+}
+
+.c-option--hidden:active:checked
+  + .c-custom-toggle
+  .c-custom-toggle__fake-input::after {
+  margin-left: -6px;
+}
+
+/*
+    Component: Custom Select
+    ---
+    Custom select dropdown
+*/
+
+.c-custom-select {
+  display: block;
+  position: relative;
+}
+
+.c-custom-select__symbol {
+  width: var(--global-whitespace);
+  height: var(--global-whitespace);
+  position: absolute;
+  top: calc(var(--global-whitespace) / 2);
+  right: calc(var(--global-whitespace) / 2);
+  pointer-events: none;
+  fill: var(--global-color-neutral-x-light);
 }
 
 /*------------------------------------*\
@@ -1076,6 +1217,37 @@ input::placeholder {
     These examples override the primary ('mobile first') styles.
     USE THEM INLINE!
 */
+
+@media (prefers-color-scheme: dark) {
+  html {
+      background-color: var(--global-color-neutral-xxxx-dark);
+  }
+  .c-logo {
+    --logo__path--1--fill: var(--global-color-neutral-xxxxx-light);
+    --logo__path--2--fill: var(--logo__path--1--fill);
+    --logo__path--3--fill: var(--logo__path--1--fill);
+  }
+  .c-card{
+    --card--bg:var(--global-color-neutral-xxx-dark);
+  }
+  .c-card__footer{
+    --card__footer--bg:var(--global-color-neutral-xxx-dark);
+  }
+  html{
+    --html--color:var(--global-color-neutral-xxxxx-light);
+  }
+  .c-label{
+    --label--color:var(--global-color-neutral-x-light);
+  }
+  .c-input{
+    --input-color:var(--global-color-neutral-dark);
+    --input--bg:var(--global-color-neutral-xxxx-dark);
+    --input--border-color:var(--global-color-neutral-xxxx-dark);
+  }
+}
+
+
+
 
 /* Extra small devices (portrait phones, less than 576px)
 No media query since this is the default in mobile first design
